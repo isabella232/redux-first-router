@@ -513,7 +513,8 @@ export default (routesMap: RoutesMap = {}, options: Options = {}) => {
       )
     }
 
-    history.listen(_historyAttemptDispatchAction.bind(null, store))
+    const unlisten = history.listen(_historyAttemptDispatchAction.bind(null, store))
+    options.getUnlistener(unlisten)
 
     // dispatch the first location-aware action so initial app state is based on the url on load
     if (!location.hasSSR || isServer()) {
